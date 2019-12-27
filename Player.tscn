@@ -1,0 +1,141 @@
+[gd_scene load_steps=18 format=2]
+
+[ext_resource path="res://Player.gd" type="Script" id=1]
+[ext_resource path="res://Player/Idle0.png" type="Texture" id=2]
+[ext_resource path="res://Player/Jump1.png" type="Texture" id=3]
+[ext_resource path="res://Player/Run0.png" type="Texture" id=4]
+[ext_resource path="res://Player/Run1.png" type="Texture" id=5]
+[ext_resource path="res://Player/Run2.png" type="Texture" id=6]
+[ext_resource path="res://Player/Run3.png" type="Texture" id=7]
+[ext_resource path="res://Player/Run4.png" type="Texture" id=8]
+[ext_resource path="res://Player/Run7.png" type="Texture" id=9]
+[ext_resource path="res://Imagens/Health/vida_5.png" type="Texture" id=10]
+[ext_resource path="res://Imagens/Mana/mana_5.png" type="Texture" id=11]
+[ext_resource path="res://Imagens/calum.png" type="Texture" id=12]
+
+[sub_resource type="SpriteFrames" id=1]
+animations = [ {
+"frames": [ ExtResource( 2 ) ],
+"loop": true,
+"name": "idle",
+"speed": 10.0
+}, {
+"frames": [ ExtResource( 3 ) ],
+"loop": true,
+"name": "jump",
+"speed": 10.0
+}, {
+"frames": [ ExtResource( 4 ), ExtResource( 5 ), ExtResource( 6 ), ExtResource( 7 ), ExtResource( 8 ), ExtResource( 9 ) ],
+"loop": true,
+"name": "run",
+"speed": 10.0
+} ]
+
+[sub_resource type="CapsuleShape2D" id=2]
+radius = 13.792
+height = 31.262
+
+[sub_resource type="RectangleShape2D" id=3]
+extents = Vector2( 12.0518, 0.717834 )
+
+[sub_resource type="CapsuleShape2D" id=4]
+radius = 14.3989
+height = 30.6472
+
+[sub_resource type="Animation" id=5]
+resource_name = "damage"
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( -0.1, 0.4, 0.9 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 0.847059, 0, 0, 1 ), Color( 1, 1, 1, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Sprite:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( -0.1, 0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ true, false, true, false, true, false, true, false, true, false, true ]
+}
+
+[node name="Player" type="KinematicBody2D"]
+position = Vector2( 4384, 640 )
+z_index = 10
+script = ExtResource( 1 )
+
+[node name="Sprite" type="AnimatedSprite" parent="."]
+position = Vector2( -19.0259, -0.751038 )
+frames = SubResource( 1 )
+animation = "idle"
+
+[node name="Shape" type="CollisionShape2D" parent="."]
+position = Vector2( -18.6283, 2.5679 )
+shape = SubResource( 2 )
+
+[node name="Camera2D" type="Camera2D" parent="."]
+current = true
+zoom = Vector2( 0.7, 0.7 )
+limit_left = 0
+limit_top = -100
+limit_bottom = 725
+smoothing_enabled = true
+
+[node name="pes" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 4
+
+[node name="shape" type="CollisionShape2D" parent="pes"]
+position = Vector2( -18.9892, 31.8488 )
+shape = SubResource( 3 )
+
+[node name="dano" type="Area2D" parent="."]
+visible = false
+collision_layer = 4
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="dano"]
+visible = false
+position = Vector2( -18.6113, 2.13965 )
+shape = SubResource( 4 )
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="HP" type="Sprite" parent="CanvasLayer"]
+position = Vector2( 31.4259, 108.506 )
+scale = Vector2( 3.07985, 3.07985 )
+texture = ExtResource( 10 )
+centered = false
+
+[node name="Mana" type="Sprite" parent="CanvasLayer"]
+position = Vector2( 31.4259, 138.156 )
+scale = Vector2( 3.07985, 3.07985 )
+texture = ExtResource( 11 )
+centered = false
+
+[node name="Profile" type="Sprite" parent="CanvasLayer"]
+position = Vector2( 29.7304, 18.2016 )
+scale = Vector2( 0.429434, 0.429434 )
+texture = ExtResource( 12 )
+centered = false
+
+[node name="ShootRight" type="Position2D" parent="."]
+position = Vector2( 33.645, 6.57355 )
+
+[node name="ShootLeft" type="Position2D" parent="."]
+position = Vector2( -71.5405, 6.96094 )
+
+[node name="anim" type="AnimationPlayer" parent="."]
+anims/damage = SubResource( 5 )
+[connection signal="body_entered" from="pes" to="." method="_on_pes_body_entered"]
+[connection signal="body_entered" from="dano" to="." method="_on_dano_body_entered"]

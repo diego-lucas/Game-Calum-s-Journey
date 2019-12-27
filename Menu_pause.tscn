@@ -1,0 +1,67 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://Menu_pause.gd" type="Script" id=1]
+[ext_resource path="res://LuckiestGuy-Regular.ttf" type="DynamicFontData" id=2]
+[ext_resource path="res://Imagens/btn_retomar.png" type="Texture" id=3]
+[ext_resource path="res://Imagens/btn_menu.png" type="Texture" id=4]
+[ext_resource path="res://Imagens/btn_exit.png" type="Texture" id=5]
+
+[sub_resource type="DynamicFont" id=1]
+size = 70
+font_data = ExtResource( 2 )
+
+[node name="Menu" type="Control"]
+pause_mode = 2
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 1 )
+
+[node name="ColorRect" type="ColorRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0, 0, 0, 0.501961 )
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer"]
+margin_left = 364.0
+margin_top = 183.0
+margin_right = 660.0
+margin_bottom = 416.0
+alignment = 1
+
+[node name="Label" type="Label" parent="CenterContainer/VBoxContainer"]
+margin_right = 296.0
+margin_bottom = 71.0
+custom_fonts/font = SubResource( 1 )
+text = "Pausado"
+align = 1
+
+[node name="GridContainer" type="GridContainer" parent="CenterContainer/VBoxContainer"]
+margin_left = 48.0
+margin_top = 75.0
+margin_right = 248.0
+margin_bottom = 233.0
+size_flags_horizontal = 4
+
+[node name="Retomar" type="TextureButton" parent="CenterContainer/VBoxContainer/GridContainer"]
+margin_right = 200.0
+margin_bottom = 50.0
+texture_normal = ExtResource( 3 )
+
+[node name="Menu" type="TextureButton" parent="CenterContainer/VBoxContainer/GridContainer"]
+margin_top = 54.0
+margin_right = 200.0
+margin_bottom = 104.0
+texture_normal = ExtResource( 4 )
+
+[node name="Quit" type="TextureButton" parent="CenterContainer/VBoxContainer/GridContainer"]
+margin_top = 108.0
+margin_right = 200.0
+margin_bottom = 158.0
+texture_normal = ExtResource( 5 )
+[connection signal="pressed" from="CenterContainer/VBoxContainer/GridContainer/Retomar" to="." method="_on_Retomar_pressed"]
+[connection signal="pressed" from="CenterContainer/VBoxContainer/GridContainer/Menu" to="." method="_on_Menu_pressed"]
+[connection signal="pressed" from="CenterContainer/VBoxContainer/GridContainer/Quit" to="." method="_on_Quit_pressed"]

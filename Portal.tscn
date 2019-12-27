@@ -1,0 +1,100 @@
+[gd_scene load_steps=18 format=2]
+
+[ext_resource path="res://Portal.gd" type="Script" id=1]
+[ext_resource path="res://Imagens/Portal/portal1.png" type="Texture" id=2]
+[ext_resource path="res://Imagens/Portal/portal2.png" type="Texture" id=3]
+[ext_resource path="res://Imagens/Portal/portal3.png" type="Texture" id=4]
+[ext_resource path="res://Imagens/Portal/portal4.png" type="Texture" id=5]
+[ext_resource path="res://Imagens/Portal/portal5.png" type="Texture" id=6]
+[ext_resource path="res://Imagens/Portal/portal6.png" type="Texture" id=7]
+[ext_resource path="res://Imagens/Portal/portal7.png" type="Texture" id=8]
+[ext_resource path="res://Imagens/Portal/portal8.png" type="Texture" id=9]
+[ext_resource path="res://Imagens/Portal/portal9.png" type="Texture" id=10]
+[ext_resource path="res://LuckiestGuy-Regular.ttf" type="DynamicFontData" id=11]
+[ext_resource path="res://Imagens/Coin/coin1.png" type="Texture" id=12]
+[ext_resource path="res://Imagens/time.png" type="Texture" id=13]
+[ext_resource path="res://Imagens/enemy.png" type="Texture" id=14]
+
+[sub_resource type="SpriteFrames" id=1]
+animations = [ {
+"frames": [ ExtResource( 2 ), ExtResource( 3 ), ExtResource( 4 ), ExtResource( 5 ), ExtResource( 6 ), ExtResource( 7 ), ExtResource( 8 ), ExtResource( 9 ), ExtResource( 10 ) ],
+"loop": true,
+"name": "default",
+"speed": 9.0
+} ]
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 19.6392, 43.9269 )
+
+[sub_resource type="DynamicFont" id=3]
+size = 30
+font_data = ExtResource( 11 )
+
+[node name="Portal" type="Area2D"]
+position = Vector2( 95.6586, 119.735 )
+script = ExtResource( 1 )
+cenas = "null"
+
+[node name="Sprite" type="AnimatedSprite" parent="."]
+scale = Vector2( 0.3, 0.3 )
+frames = SubResource( 1 )
+frame = 3
+playing = true
+
+[node name="Shape" type="CollisionShape2D" parent="."]
+position = Vector2( -0.751953, 6.10352e-005 )
+shape = SubResource( 2 )
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Label" type="Label" parent="CanvasLayer"]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -128.697
+margin_top = 10.3972
+margin_right = -13.6969
+margin_bottom = 41.3972
+custom_fonts/font = SubResource( 3 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "score"
+align = 2
+
+[node name="Coins" type="Label" parent="CanvasLayer"]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -128.697
+margin_top = 41.2626
+margin_right = -13.6969
+margin_bottom = 72.2626
+custom_fonts/font = SubResource( 3 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "coins"
+align = 2
+
+[node name="time" type="Label" parent="CanvasLayer"]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -208.0
+margin_top = 72.8654
+margin_right = -15.0
+margin_bottom = 103.865
+custom_fonts/font = SubResource( 3 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "time"
+align = 2
+
+[node name="Sprite" type="Sprite" parent="CanvasLayer"]
+position = Vector2( 885.863, 53.0252 )
+scale = Vector2( 0.320398, 0.320398 )
+texture = ExtResource( 12 )
+
+[node name="Sprite3" type="Sprite" parent="CanvasLayer"]
+position = Vector2( 801.405, 85.0379 )
+scale = Vector2( 0.224616, 0.224616 )
+texture = ExtResource( 13 )
+
+[node name="Sprite2" type="Sprite" parent="CanvasLayer"]
+position = Vector2( 886.204, 18.6286 )
+scale = Vector2( 0.522605, 0.522605 )
+texture = ExtResource( 14 )
+[connection signal="body_entered" from="." to="." method="_on_Portal_body_entered"]
